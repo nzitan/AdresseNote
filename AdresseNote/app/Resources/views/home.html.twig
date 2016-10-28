@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/framework/css/style.css') }}" />
+    </head>
+    <body>
+        <h1><a href="/">AdresseNote</a></h1>
+        <nav>
+        	{% if user is defined %}
+        		<strong>Bienvenue {{ user.login }}</strong>
+        	{% endif %}
+        	<ul>
+        		{% for content in contents %}
+        		<li><a href="/{{ content }}" class="content">{{ content }}</a></li>
+        		{% endfor %}
+        	</ul>
+        </nav>
+        <section>
+        	{% if errors is defined %}
+        		<ul>
+        		{% for error in errors %}
+        			<li>{{ error }}</li>
+        		{% endfor %}
+        		</ul>
+        	{% endif %}
+        	{% if form is defined %}
+        		{{ form_start(form) }}
+        		{{ form_widget(form) }}
+        		{{ form_end(form) }}
+        	{% endif %}
+        	{% if contacts is defined %}
+        		<a href="/addContact" class="content">Ajouter un contact</a>
+        		<ul>
+	        	{% for contact in contacts%}
+	        			<li class="contact">
+	        				<ul>
+	        					<li style="font-weight:bold;"><a href="/modifContact/{{ contact.idContact }}">{{ contact.name}} </a></li>
+	        					<li> Email : {{ contact.email}} </li>
+	        					<li> Adresse : {{ contact.adresse}} </li>
+	        					<li> Telephone : {{ contact.telephone}} </li>
+	        					<li> Website : <a href="https://{{ contact.website}}">{{ contact.website}}</a></li>
+	        				</ul>
+	        			</li>
+	        	{% endfor %}
+        		</ul>
+        	{% endif %}
+        </section>
+    </body>
+</html>
